@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restapi-service
+  namespace: dotnetrestapi
+spec:
+  selector:
+    app:  dotnetrestapi
+  ports:
+    - port: 5000
+      protocol: TCP

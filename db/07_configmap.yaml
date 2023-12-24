@@ -1,0 +1,51 @@
+apiVersion: v1
+data:
+  books.sql: "--\n-- PostgreSQL database cluster dump\n--\n\nSET default_transaction_read_only
+    = off;\n\nSET client_encoding = 'UTF8';\nSET standard_conforming_strings = on;\n\n--\n--
+    Roles\n--\n\nCREATE ROLE tut1;\nALTER ROLE tut1 WITH SUPERUSER INHERIT CREATEROLE
+    CREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'tut1';\n\n\n\n\n\n\n--\n--
+    Databases\n--\n\n--\n-- Database \"template1\" dump\n--\n\n\\connect template1\n\n--\n--
+    PostgreSQL database dump\n--\n\n-- Dumped from database version 13.11\n-- Dumped
+    by pg_dump version 13.11\n\nSET statement_timeout = 0;\nSET lock_timeout = 0;\nSET
+    idle_in_transaction_session_timeout = 0;\nSET client_encoding = 'UTF8';\nSET standard_conforming_strings
+    = on;\nSELECT pg_catalog.set_config('search_path', '', false);\nSET check_function_bodies
+    = false;\nSET xmloption = content;\nSET client_min_messages = warning;\nSET row_security
+    = off;\n\n--\n-- PostgreSQL database dump complete\n--\n\n--\n-- Database \"postgres\"
+    dump\n--\n\n\\connect postgres\n\n--\n-- PostgreSQL database dump\n--\n\n-- Dumped
+    from database version 13.11\n-- Dumped by pg_dump version 13.11\n\nSET statement_timeout
+    = 0;\nSET lock_timeout = 0;\nSET idle_in_transaction_session_timeout = 0;\nSET
+    client_encoding = 'UTF8';\nSET standard_conforming_strings = on;\nSELECT pg_catalog.set_config('search_path',
+    '', false);\nSET check_function_bodies = false;\nSET xmloption = content;\nSET
+    client_min_messages = warning;\nSET row_security = off;\n\n--\n-- PostgreSQL database
+    dump complete\n--\n\n--\n-- Database \"tut1\" dump\n--\n\n--\n-- PostgreSQL database
+    dump\n--\n\n-- Dumped from database version 13.11\n-- Dumped by pg_dump version
+    13.11\n\nSET statement_timeout = 0;\nSET lock_timeout = 0;\nSET idle_in_transaction_session_timeout
+    = 0;\nSET client_encoding = 'UTF8';\nSET standard_conforming_strings = on;\nSELECT
+    pg_catalog.set_config('search_path', '', false);\nSET check_function_bodies =
+    false;\nSET xmloption = content;\nSET client_min_messages = warning;\nSET row_security
+    = off;\n\n--\n-- Name: tut1; Type: DATABASE; Schema: -; Owner: tut1\n--\n\nCREATE
+    DATABASE tut1 WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.utf8';\n\n\nALTER
+    DATABASE tut1 OWNER TO tut1;\n\n\\connect tut1\n\nSET statement_timeout = 0;\nSET
+    lock_timeout = 0;\nSET idle_in_transaction_session_timeout = 0;\nSET client_encoding
+    = 'UTF8';\nSET standard_conforming_strings = on;\nSELECT pg_catalog.set_config('search_path',
+    '', false);\nSET check_function_bodies = false;\nSET xmloption = content;\nSET
+    client_min_messages = warning;\nSET row_security = off;\n\nSET default_tablespace
+    = '';\n\nSET default_table_access_method = heap;\n\n--\n-- Name: books; Type:
+    TABLE; Schema: public; Owner: tut1\n--\n\nCREATE TABLE public.books (\n    id
+    integer NOT NULL,\n    title text,\n    author text\n);\n\n\nALTER TABLE public.books
+    OWNER TO tut1;\n\n--\n-- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner:
+    tut1\n--\n\nCREATE SEQUENCE public.books_id_seq\n    AS integer\n    START WITH
+    1\n    INCREMENT BY 1\n    NO MINVALUE\n    NO MAXVALUE\n    CACHE 1;\n\n\nALTER
+    TABLE public.books_id_seq OWNER TO tut1;\n\n--\n-- Name: books_id_seq; Type: SEQUENCE
+    OWNED BY; Schema: public; Owner: tut1\n--\n\nALTER SEQUENCE public.books_id_seq
+    OWNED BY public.books.id;\n\n\n--\n-- Name: books id; Type: DEFAULT; Schema: public;
+    Owner: tut1\n--\n\nALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_id_seq'::regclass);\n\n\n--\n--
+    Data for Name: books; Type: TABLE DATA; Schema: public; Owner: tut1\n--\n\nCOPY
+    public.books (id, title, author) FROM stdin;\n1\tbook1\tauthor1\n2\tbook2\tauthor2\n3\tbook3\tauthor3\n\\.\n\n\n--\n--
+    Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tut1\n--\n\nSELECT
+    pg_catalog.setval('public.books_id_seq', 3, true);\n\n\n--\n-- PostgreSQL database
+    dump complete\n--\n\n--\n-- PostgreSQL database cluster dump complete\n\n"
+kind: ConfigMap
+metadata:
+  name: restapi-db-config
+  namespace: dotnetrestapi

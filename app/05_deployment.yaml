@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnetrestapi
+  namespace: dotnetrestapi
+spec:
+  selector:
+    matchLabels:
+      app: dotnetrestapi
+  template:
+    metadata:
+      labels:
+        app: dotnetrestapi
+    spec:
+      containers:
+        - image: ghcr.io/creategreatthings/rest-api-test:dev
+          name: dotnetrestapi
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DOTNET_URLS
+              value: http://*:5000
+            - name: ConnectionStrings__DBCONN
+              valueFrom:
+                secretKeyRef:
+                  name: dotnetrestapi-secrets
+                  key: ConnectionStrings__DBCONN
+      imagePullSecrets:
+      - name: ghcr-docker

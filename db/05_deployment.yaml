@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restapi-db
+  namespace: dotnetrestapi
+spec:
+  selector:
+    matchLabels:
+      app: restapi-db
+  template:
+    metadata:
+      labels:
+        app: restapi-db
+    spec:
+      containers:
+        - image: postgres:latest
+          name: restapi-db
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgcred
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+          - name: initdata
+            mountPath: /docker-entrypoint-initdb.d/
+          - name: pgdata
+            mountPath: /var/lib/postgresql/
+      volumes:
+        - name: initdata
+          configMap:
+            name: restapi-db-config
+        - name: pgdata
+          persistentVolumeClaim:
+            claimName: restapi-db-pvc
